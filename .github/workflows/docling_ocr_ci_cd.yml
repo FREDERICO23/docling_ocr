@@ -10,14 +10,23 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-22.04
+    runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
+        os: [ubuntu-22.04, ubuntu-24.04]
         python-version: ['3.7', '3.8', '3.9', '3.10', '3.11', '3.12']
+        exclude:
+          # Python 3.7/3.8 can't be provisioned by actions/setup-python on
+          # ubuntu-24.04 (it dropped the libssl1.1 these versions need).
+          - os: ubuntu-24.04
+            python-version: '3.7'
+          - os: ubuntu-24.04
+            python-version: '3.8'
 
     steps:
     - uses: actions/checkout@v3
-    
+
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v4
       with:
