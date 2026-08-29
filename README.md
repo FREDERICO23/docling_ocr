@@ -35,6 +35,23 @@ pip install docling_ocr
 - Transformers 4.15.0+
 - Pillow 8.0.0+
 
+### CPU-Only Installation
+
+`docling_ocr` does not pin a specific PyTorch build, but a plain `pip install torch` on Linux resolves to the default CUDA-enabled wheel, which pulls in several `nvidia-*` packages (cuDNN, cuBLAS, etc.). On a machine without an NVIDIA GPU, this can lead to import errors like:
+
+```
+ImportError: libcudnn.so.9: cannot open shared object file: No such file or directory
+```
+
+To avoid this, install the CPU-only PyTorch build **before** installing `docling_ocr`:
+
+```bash
+pip install torch --index-url https://download.pytorch.org/whl/cpu
+pip install docling_ocr
+```
+
+Since `docling_ocr` only requires `torch>=1.10.0` with no upper bound, pip will keep the CPU wheel already installed rather than replacing it.
+
 ## Quick Start
 
 ### Basic Usage
