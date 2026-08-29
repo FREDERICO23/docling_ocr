@@ -36,12 +36,15 @@ class TestUtils(unittest.TestCase):
         """Test the batch_process function."""
         # Create a mock extractor
         mock_extractor = MagicMock()
-        mock_extractor.extract_text.side_effect = [
-            "Content from test1.jpg",
-            "Content from test2.png",
-            Exception("Test error for test3.txt")
-        ]
-        
+
+        def extract_text_side_effect(file_path, **kwargs):
+            filename = os.path.basename(file_path)
+            if filename == "test3.txt":
+                raise Exception("Test error for test3.txt")
+            return f"Content from {filename}"
+
+        mock_extractor.extract_text.side_effect = extract_text_side_effect
+
         # Call batch_process
         results = batch_process(
             mock_extractor,

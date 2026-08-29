@@ -16,7 +16,6 @@ jaraco.functools==4.1.0
 jeepney==0.9.0
 Jinja2==3.1.6
 keyring==25.6.0
--e git+ssh://git@github.com/FREDERICO23/docling_ocr.git@66904289d5a985a61b56636deff9fc357d01066f#egg=llm_ocr
 markdown-it-py==3.0.0
 MarkupSafe==3.0.2
 mdurl==0.1.2
