@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="docling_ocr",
-    version="0.1.0",
+    version="1.1.0",
     packages=find_packages(),
     install_requires=[
         "torch>=1.10.0",
